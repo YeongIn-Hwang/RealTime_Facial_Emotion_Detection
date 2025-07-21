@@ -1,0 +1,9 @@
+Using 28709 images for training.
+Using 7178 images for evaluation.
+Using 7178 images for testing.
+Device used: cpu
+C:\Users\hyi8402\AppData\Local\Temp\ipykernel_8128\1315721997.py:66: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  self.scaler = torch.cuda.amp.GradScaler(enabled=self.amp)
+[Epoch: 1/2]
+Namespace(dataset_path='C:\\Users\\hyi8402\\Desktop\\실시간 얼굴 감정 검출\\DataSet\\FER2013', output_dir='out', epochs=2, batch_size=4, lr=0.0001, amp=False, in_22k=False, gradient_accumulation_steps=1, num_workers=0, checkpoint=None, model_size='tiny')
+[34m[1mwandb[0m: [32m[41mERROR[0m The nbformat package was not found. It is required to save notebook history.

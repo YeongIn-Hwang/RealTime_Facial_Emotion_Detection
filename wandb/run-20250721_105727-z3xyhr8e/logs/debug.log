@@ -1,0 +1,25 @@
+2025-07-21 10:57:27,117 INFO    MainThread:8128 [wandb_init.py:setup_run_log_directory():703] Logging user logs to c:\Users\hyi8402\Desktop\실시간 얼굴 감정 검출\wandb\run-20250721_105727-z3xyhr8e\logs\debug.log
+2025-07-21 10:57:27,117 INFO    MainThread:8128 [wandb_init.py:setup_run_log_directory():704] Logging internal logs to c:\Users\hyi8402\Desktop\실시간 얼굴 감정 검출\wandb\run-20250721_105727-z3xyhr8e\logs\debug-internal.log
+2025-07-21 10:57:27,117 INFO    MainThread:8128 [wandb_init.py:init():830] calling init triggers
+2025-07-21 10:57:27,117 INFO    MainThread:8128 [wandb_init.py:init():835] wandb.init called with sweep_config: {}
+config: {'_wandb': {}}
+2025-07-21 10:57:28,115 INFO    MainThread:8128 [wandb_init.py:init():871] starting backend
+2025-07-21 10:57:28,117 INFO    MainThread:8128 [wandb_init.py:init():874] sending inform_init request
+2025-07-21 10:57:28,120 INFO    MainThread:8128 [wandb_init.py:init():882] backend started and connected
+2025-07-21 10:57:28,121 INFO    MainThread:8128 [wandb_run.py:_label_probe_notebook():1304] probe notebook
+2025-07-21 10:57:28,122 INFO    MainThread:8128 [wandb_init.py:init():953] updated telemetry
+2025-07-21 10:57:28,193 INFO    MainThread:8128 [wandb_init.py:init():977] communicating run to backend with 90.0 second timeout
+2025-07-21 10:57:28,736 INFO    MainThread:8128 [wandb_init.py:init():1029] starting run threads in backend
+2025-07-21 10:57:28,946 INFO    MainThread:8128 [wandb_run.py:_console_start():2458] atexit reg
+2025-07-21 10:57:28,946 INFO    MainThread:8128 [wandb_run.py:_redirect():2306] redirect: wrap_raw
+2025-07-21 10:57:28,946 INFO    MainThread:8128 [wandb_run.py:_redirect():2375] Wrapping output streams.
+2025-07-21 10:57:28,946 INFO    MainThread:8128 [wandb_run.py:_redirect():2398] Redirects installed.
+2025-07-21 10:57:28,947 INFO    MainThread:8128 [wandb_init.py:init():1075] run started, returning control to user process
+2025-07-21 10:57:29,883 INFO    MainThread:8128 [wandb_watch.py:_watch():70] Watching
+2025-07-21 10:58:54,618 INFO    MainThread:8128 [wandb_run.py:_finish():2224] finishing run anony-moose-483922537331977471/EmoNeXt/z3xyhr8e
+2025-07-21 10:58:54,618 INFO    MainThread:8128 [wandb_run.py:_atexit_cleanup():2423] got exitcode: 0
+2025-07-21 10:58:54,619 INFO    MainThread:8128 [wandb_run.py:_restore():2405] restore
+2025-07-21 10:58:54,619 INFO    MainThread:8128 [wandb_run.py:_restore():2411] restore done
+2025-07-21 10:58:55,960 INFO    MainThread:8128 [wandb_run.py:_footer_history_summary_info():3903] rendering history
+2025-07-21 10:58:55,960 INFO    MainThread:8128 [wandb_run.py:_footer_history_summary_info():3935] rendering summary
+2025-07-21 10:58:55,960 INFO    MainThread:8128 [wandb_run.py:_footer_sync_info():3864] logging synced files

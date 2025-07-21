@@ -1,0 +1,46 @@
+_wandb:
+    value:
+        cli_version: 0.21.0
+        e:
+            b4g5h8cinq6u18paa6h9sbkrp2bji2g0:
+                codePath: FER_Practice_EmoNeXt.ipynb
+                codePathLocal: FER_Practice_EmoNeXt.ipynb
+                cpu_count: 4
+                cpu_count_logical: 8
+                disk:
+                    /:
+                        total: "254187401216"
+                        used: "78238429184"
+                executable: c:\Users\hyi8402\anaconda3\envs\fer-env\python.exe
+                git:
+                    commit: d694ad3b408234faf40602ab6b20a17ab0de9210
+                    remote: git@github.com:YeongIn-Hwang/RealTime_Facial_Emotion_Detection.git
+                host: DESKTOP-3BCJNN1
+                memory:
+                    total: "17031008256"
+                os: Windows-10-10.0.19045-SP0
+                program: c:\Users\hyi8402\Desktop\실시간 얼굴 감정 검출\FER_Practice_EmoNeXt.ipynb
+                python: CPython 3.10.18
+                root: c:\Users\hyi8402\Desktop\실시간 얼굴 감정 검출
+                startedAt: "2025-07-21T01:48:19.885248Z"
+                writerId: b4g5h8cinq6u18paa6h9sbkrp2bji2g0
+        m: []
+        python_version: 3.10.18
+        t:
+            "1":
+                - 1
+                - 41
+            "2":
+                - 1
+                - 41
+            "3":
+                - 1
+                - 2
+                - 13
+            "4": 3.10.18
+            "5": 0.21.0
+            "8":
+                - 1
+                - 3
+            "12": 0.21.0
+            "13": windows-amd64

@@ -1,0 +1,10 @@
+Using 28709 images for training.
+Using 7178 images for evaluation.
+Using 7178 images for testing.
+[Train Epoch 1/2]:   1%|          | 51/7178 [01:55<4:29:40,  2.27s/batch, loss=1.97, acc=18.1]
+[Train Epoch 1/2]:   0%|          | 2/1795 [00:27<6:53:03, 13.82s/batch, loss=1.95, acc=6.25]
+Device used: cpu
+C:\Users\hyi8402\AppData\Local\Temp\ipykernel_8128\2275324683.py:66: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  self.scaler = torch.cuda.amp.GradScaler(enabled=self.amp)
+[Epoch: 1/2]
+[Train Epoch 1/2]:   3%|▎         | 49/1795 [03:37<2:15:07,  4.64s/batch, loss=1.93, acc=23.3]
