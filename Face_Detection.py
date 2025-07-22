@@ -40,14 +40,6 @@
     "cap.release() #열었던 웹캠을 닫는 함수\n",
     "cv2.destroyAllWindows() # CV2로 띄운 모든 창을 닫는 함수\n"
    ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": null,
-   "id": "0c11e266",
-   "metadata": {},
-   "outputs": [],
-   "source": []
   }
  ],
  "metadata": {
