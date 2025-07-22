@@ -2,28 +2,38 @@
 __pycache__/
 *.py[cod]
 *.so
-*.ipynb_checkpoints
 *.pkl
 *.h5
 *.pt
-
-# VSCode
-.vscode/
-
-# Environment
-.env
-.venv/
-env/
-venv/
-
-# Data & Logs
-*.csv
-*.log
 *.db
-.DS_Store
 
 # Jupyter
 *.ipynb_checkpoints/
 
+# VSCode
+.vscode/
+
 # OS
+.DS_Store
 Thumbs.db
+
+# Env folders
+.env
+.venv/
+venv/
+env/
+fer-env/
+.conda/
+
+# Python virtualenv internals (Windows)
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+
+# Installed packages (if copied)
+site-packages/
+
+# Logs & data
+*.log
+*.csv
