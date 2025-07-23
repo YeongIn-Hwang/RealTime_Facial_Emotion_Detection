@@ -7,6 +7,7 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+from Emotion_Analysis import emotion_Analysis
 
 mp_face_detection = mp.solutions.face_detection # 얼굴 검출 모델 준비
 mp_drawing = mp.solutions.drawing_utils # 얼굴 검출된 부분에 사각형 유틸 추가
@@ -77,7 +78,19 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
             for i, detection in enumerate(results.detections):
                 face_crop, _ = crop_face_dynamic_size(image, detection)
                 if face_crop is not None:
-                # 얼굴만 출력 (윈도우 이름에 번호 붙이면 여러 얼굴도 가능)
+                    # 감정 분석 수행
+                    emotion_scores = emotion_Analysis(face_crop)
+
+                    if emotion_scores:
+                        info_img = np.ones((200, 300, 3), dtype=np.uint8) * 255
+                        for idx, (emotion, score) in enumerate(emotion_scores.items()):
+                            text = f"{emotion}: {score:.2f}"
+                            position = (10, 30 + idx * 25)
+                            cv2.putText(info_img, text, position,
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2, cv2.LINE_AA)
+                        cv2.imshow('Emotion Probabilities', info_img)    
+                        
+                    # 얼굴만 출력하고 싶다면 아래 유지
                     cv2.imshow(f'Face Crop {i}', face_crop)
         
         cv2.imshow('Mediapipe Face Detection', image) #Cv2로 이미지 띄움 (해당 작업이 프레임 단위로 되므로 이미지가 영상처럼 보임)
@@ -86,4 +99,10 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
 
 cap.release() #열었던 웹캠을 닫는 함수
 cv2.destroyAllWindows() # CV2로 띄운 모든 창을 닫는 함수
+
+
+# In[ ]:
+
+
+
 
