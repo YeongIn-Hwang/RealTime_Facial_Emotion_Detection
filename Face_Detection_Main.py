@@ -8,6 +8,11 @@ import cv2
 import mediapipe as mp
 import numpy as np
 from Emotion_Analysis import emotion_Analysis
+import time
+from Visualize import save_score, plot_emotion_history_to_cv2img
+
+last_plot_time = time.time()
+graph_img = None
 
 mp_face_detection = mp.solutions.face_detection # 얼굴 검출 모델 준비
 mp_drawing = mp.solutions.drawing_utils # 얼굴 검출된 부분에 사각형 유틸 추가
@@ -82,6 +87,15 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
                     emotion_scores = emotion_Analysis(face_crop)
 
                     if emotion_scores:
+                        save_score(emotion_scores)
+                        
+                        now = time.time()
+                        if now - last_plot_time >= 1.0:
+                            graph_img = plot_emotion_history_to_cv2img()
+                            last_plot_time = now
+                        if graph_img is not None:
+                            cv2.imshow('Emotion Graph', graph_img)
+
                         info_img = np.ones((200, 300, 3), dtype=np.uint8) * 255
                         for idx, (emotion, score) in enumerate(emotion_scores.items()):
                             text = f"{emotion}: {score:.2f}"
@@ -89,15 +103,14 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
                             cv2.putText(info_img, text, position,
                                         cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2, cv2.LINE_AA)
                         cv2.imshow('Emotion Probabilities', info_img)    
-                        
-                    # 얼굴만 출력하고 싶다면 아래 유지
-                    cv2.imshow(f'Face Crop {i}', face_crop)
+                    
+                    cv2.imshow(f'Face Crop {i}', face_crop) # 얼굴 이미지 보임
         
-        cv2.imshow('Mediapipe Face Detection', image) #Cv2로 이미지 띄움 (해당 작업이 프레임 단위로 되므로 이미지가 영상처럼 보임)
-        if cv2.waitKey(5) & 0xFF == 27: #Esc가 들어오면 종료
+        cv2.imshow('Mediapipe Face Detection', image) # Cv2로 이미지 띄움 (해당 작업이 프레임 단위로 되므로 이미지가 영상처럼 보임)
+        if cv2.waitKey(5) & 0xFF == 27: # Esc가 들어오면 종료
             break
 
-cap.release() #열었던 웹캠을 닫는 함수
+cap.release() # 열었던 웹캠을 닫는 함수
 cv2.destroyAllWindows() # CV2로 띄운 모든 창을 닫는 함수
 
 
