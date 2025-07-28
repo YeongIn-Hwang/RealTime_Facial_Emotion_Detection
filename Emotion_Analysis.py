@@ -12,9 +12,6 @@ emotion_labels = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutr
 # 감정 분석 함수
 def emotion_Analysis(crop_image):
     try:
-        #gray = cv2.cvtColor(crop_image, cv2.COLOR_BGR2GRAY)
-        #resized_face = cv2.resize(gray, (64, 64)) / 255.0
-        #input_face = np.expand_dims(resized_face, axis=(0, -1))  # (1, 64, 64, 1)
         predictions = emotion_classifier.predict(crop_image, verbose=0)[0]  # 확률 벡터
         
         emotion_scores = dict(zip(emotion_labels, predictions))

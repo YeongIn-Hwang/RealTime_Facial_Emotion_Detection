@@ -2,15 +2,6 @@ import cv2
 import numpy as np
 
 def preprocess_input_for_miniXception(image_bgr):
-    """
-    MiniXception 모델용 전처리 함수.
-    
-    Args:
-        image_bgr (np.ndarray): BGR 형식의 얼굴 이미지 (crop된 상태).
-        
-    Returns:
-        np.ndarray: (1, 48, 48, 1) 형식의 전처리된 입력.
-    """
     if image_bgr is None or image_bgr.size == 0:
         return None
 

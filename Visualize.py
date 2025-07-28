@@ -45,7 +45,7 @@ def plot_emotion_history_to_cv2img(smoothing_window=5):
         trimmed_times = times[-len(smoothed_scores):]
         ax.plot(trimmed_times, smoothed_scores, label=emotion)
 
-    ax.set_xlabel('Time (sec)')
+    ax.set_xlabel('Time (3Frame)')
     ax.set_ylabel('Emotion Score')
     ax.set_title('Emotion Trends (Smoothed)')
     ax.legend(loc='upper right')

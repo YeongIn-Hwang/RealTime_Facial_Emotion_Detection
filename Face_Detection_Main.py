@@ -62,9 +62,11 @@ with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence
                 detection = results.detections[0]
                 face_crop, _ = crop_face_dynamic_size(frame, detection)
 
-                if face_crop is not None:
+                if face_crop is not None and face_crop.shape[0] > 60 and face_crop.shape[1] > 60:
                     input_tensor = preprocess_input_for_miniXception(face_crop)
                     emotion_scores = emotion_Analysis(input_tensor)
+
+                    #cv2.imshow('Crop_Face', face_crop)
 
                     if emotion_scores:
                         save_score(emotion_scores, frame_counter)
