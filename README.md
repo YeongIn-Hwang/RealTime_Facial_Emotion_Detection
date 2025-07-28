@@ -5,7 +5,7 @@ https://github.com/YeongIn-Hwang/RealTime_Facial_Emotion_Detection
 - 얼굴을 실시간으로 인식하고, 감정을 분석하여 시각적으로 보여주는 Python 기반 데스크탑 애플리케이션
 - Media pipe로 얼굴을 검출하고, Mini-Xception 모델을 통해 7가지 감정을 분류
 
-Ｎｏｔｉｏｎ 링크
+Notion 링크
 https://www.notion.so/22ab2a809d2280df8e28fb8377085b12
 
 모델 출처
