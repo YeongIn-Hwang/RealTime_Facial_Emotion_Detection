@@ -3,7 +3,7 @@ import mediapipe as mp
 import numpy as np
 from Emotion_Analysis import emotion_Analysis
 from Visualize import save_score, plot_emotion_history_to_cv2img
-import time
+from Preprocessing import preprocess_input_for_miniXception
 
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
@@ -42,45 +42,49 @@ def crop_face_dynamic_size(image, detection, scale_factor=2.0):
 
 with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.5) as face_detection:
     print("얼굴 검출기 실행")
+
+    frame_rgb = None
+    results = None
+
     while cap.isOpened():
         success, frame = cap.read()
         if not success:
+            print("[프레임 수신 실패]")
             break
 
-        image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        results = face_detection.process(image)
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+        frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        if results.detections:
-            for i, detection in enumerate(results.detections):
-                face_crop, _ = crop_face_dynamic_size(image, detection)
+        # 3프레임마다만 연산
+        if frame_counter % 3 == 0:
+            results = face_detection.process(frame_rgb)
+
+            if results.detections:
+                detection = results.detections[0]
+                face_crop, _ = crop_face_dynamic_size(frame, detection)
+
                 if face_crop is not None:
-                    emotion_scores = emotion_Analysis(face_crop)
-                    
+                    input_tensor = preprocess_input_for_miniXception(face_crop)
+                    emotion_scores = emotion_Analysis(input_tensor)
+
                     if emotion_scores:
                         save_score(emotion_scores, frame_counter)
 
-                        # ✅ 30프레임마다만 그래프 생성
-                        if frame_counter % 10 == 0:
-                            graph_img = plot_emotion_history_to_cv2img()
-
+                        graph_img = plot_emotion_history_to_cv2img()
                         if graph_img is not None:
                             cv2.imshow('Emotion Graph', graph_img)
 
-                        # 감정 텍스트 표시
-                        info_img = np.ones((200, 300, 3), dtype=np.uint8) * 255
+                        info_img = np.ones((150, 300, 3), dtype=np.uint8) * 255
                         for idx, (emotion, score) in enumerate(emotion_scores.items()):
-                            text = f"{emotion}: {score:.2f}"
-                            cv2.putText(info_img, text, (10, 30 + idx * 25),
-                                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 2, cv2.LINE_AA)
+                            cv2.putText(info_img, f"{emotion}: {score:.2f}", (10, 25 + idx * 20),
+                                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1, cv2.LINE_AA)
                         cv2.imshow('Emotion Probabilities', info_img)
 
-                    cv2.imshow(f'Face Crop {i}', face_crop)
-
-        cv2.imshow('Mediapipe Face Detection', image)
+        # 항상 보여주는 기본 영상
+        cv2.imshow('Mediapipe Face Detection', frame)
         frame_counter += 1
 
-        if cv2.waitKey(5) & 0xFF == 27:
+        if cv2.waitKey(1) & 0xFF == 27:
+            print("[ESC 눌림 → 종료]")
             break
 
 cap.release()
