@@ -1,9 +1,10 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-from Emotion_Analysis import emotion_Analysis
+from Emotion_Analysis import emotion_Analysis, update_last_layer
 from Visualize import save_score, plot_emotion_history_to_cv2img
 from Preprocessing import preprocess_input_for_miniXception
+import os
 
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
@@ -39,7 +40,61 @@ def crop_face_dynamic_size(image, detection, scale_factor=2.0):
     x2 = min(w, int(center[0] + box_size / 2))
     y2 = min(h, int(center[1] + box_size / 2))
     return image[y1:y2, x1:x2], (x1, y1, x2, y2)
+"""
+import time
 
+emotion_list = ['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']
+target_per_emotion = 150  # 감정당 수집 프레임 수
+user_faces = []
+user_labels = []
+
+def one_hot(label, label_list=['angry', 'disgust', 'fear', 'happy', 'sad', 'surprise', 'neutral']):
+    vec = [0] * len(label_list)
+    vec[label_list.index(label)] = 1
+    return vec
+
+with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.5) as face_detection:
+    for emotion in emotion_list:
+        # 1️대기 시간 안내
+        for countdown in reversed(range(1, 6)):  # 3, 2, 1
+            temp_frame = np.ones((300, 400, 3), dtype=np.uint8) * 255
+            print(f"[{emotion}] 표정을 준비해주세요. {countdown}초 뒤에 수집을 시작합니다.")
+            cv2.putText(temp_frame, f"[{emotion.upper()}] Face Prepare {countdown}", (30, 150),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 0), 2)
+            cv2.imshow("Emotion Prompt", temp_frame)
+            cv2.waitKey(1000)  # 1초씩 대기
+
+        collected = 0
+
+        while cap.isOpened() and collected < target_per_emotion:
+            success, frame = cap.read()
+            if not success:
+                break
+
+            frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            results = face_detection.process(frame_rgb)
+
+            if results.detections:
+                detection = results.detections[0]
+                face_crop, _ = crop_face_dynamic_size(frame, detection)
+
+                if face_crop is not None and face_crop.shape[0] > 60:
+                    input_tensor = preprocess_input_for_miniXception(face_crop)
+                    user_faces.append(input_tensor[0])
+                    user_labels.append(one_hot(emotion))
+                    collected += 1
+                    cv2.putText(frame, f"[{emotion}] Collecting {collected}/{target_per_emotion}", (10, 30),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+            cv2.imshow("Emotion Data Collection", frame)
+            if cv2.waitKey(1) & 0xFF == 27:
+                break
+
+faces_np = np.array(user_faces)
+labels_np = np.array(user_labels) 
+
+update_last_layer(faces_np, labels_np)
+"""
 with mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.5) as face_detection:
     print("얼굴 검출기 실행")
 
